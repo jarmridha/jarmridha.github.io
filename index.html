@@ -66,6 +66,8 @@
     .photo-ring{width:min(420px, 80vw);aspect-ratio:1/1;border-radius:50%;background:linear-gradient(145deg, rgba(227,183,79,0.18), rgba(227,183,79,0.08));padding:12px;box-shadow:0 0 0 1px rgba(227,183,79,0.12),0 30px 70px rgba(0,0,0,0.45)}
     .photo-wrap{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#121826;position:relative;border:1px solid rgba(227,183,79,0.15)}
     .photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block}
+    .contact-list{display:grid;gap:12px;margin-top:8px}
+    .contact-item{padding:14px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:14px;background:rgba(255,255,255,0.02);color:var(--muted)}
     footer{padding:28px 0 40px;text-align:center;color:#8d97a8;border-top:1px solid rgba(255,255,255,0.05)}
     @media (max-width:1024px){.hero-grid,.about-grid,.contact-grid,.cards{grid-template-columns:1fr}.hero{padding-top:40px}.hero-grid{min-height:auto}.hero-right{order:-1}.stats{grid-template-columns:repeat(2,1fr)}.nav-wrap{flex-direction:column;justify-content:center;padding:18px 0}.nav-links{justify-content:center}}
     @media (max-width:640px){.hero h1{font-size:48px}.desc{font-size:17px}.stats{grid-template-columns:1fr 1fr}.btn{width:100%}.btn-row{flex-direction:column}.nav-links{gap:16px}}
@@ -91,11 +93,11 @@
       <div>
         <div class="eyebrow">Welcome to My Portfolio</div>
         <h1>Jahangir Alam <span class="gold">Rakib</span></h1>
-        <div class="role">Civil Engineer</div>
+        <div class="role">Civil Engineer | Quality Control Engineer | Project Engineer</div>
         <p class="desc">Results-driven engineer with 5+ years of hands-on experience in quality control, site inspection, technical documentation, project coordination, and execution across major infrastructure projects in Bangladesh.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="#projects">↓ View Projects</a>
-          <a class="btn btn-outline" href="#" target="_blank">⇩ Download CV</a>
+          <a class="btn btn-outline" href="mailto:jarakibmridha@gmail.com">⇩ Request CV</a>
           <a class="btn btn-outline" href="#contact">✉ Contact Me</a>
         </div>
         <div class="stats">
@@ -173,8 +175,22 @@
       <h2 class="section-title">Contact</h2>
       <p class="section-sub">Open to professional opportunities, project discussions, and engineering collaboration.</p>
       <div class="contact-grid">
-        <div class="card"><h3>LinkedIn</h3><p><a href="https://linkedin.com/in/jahangiralamrakib" target="_blank" rel="noreferrer">linkedin.com/in/jahangiralamrakib</a></p></div>
-        <div class="card"><h3>Portfolio Link</h3><p><a href="https://jarmridha.github.io/" target="_blank" rel="noreferrer">https://jarmridha.github.io/</a></p></div>
+        <div class="card">
+          <h3>Contact Details</h3>
+          <div class="contact-list">
+            <div class="contact-item"><strong>Email:</strong> <a href="mailto:jarakibmridha@gmail.com">jarakibmridha@gmail.com</a></div>
+            <div class="contact-item"><strong>Phone:</strong> <a href="tel:+8801676080995">01676080995</a></div>
+            <div class="contact-item"><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/jahangiralamrakib" target="_blank" rel="noreferrer">linkedin.com/in/jahangiralamrakib</a></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Portfolio Link</h3>
+          <div class="contact-list">
+            <div class="contact-item"><strong>Website:</strong> <a href="https://jarmridha.github.io/" target="_blank" rel="noreferrer">https://jarmridha.github.io/</a></div>
+            <div class="contact-item"><strong>Availability:</strong> Open to engineering opportunities and project discussions</div>
+            <div class="contact-item"><strong>Location:</strong> Bangladesh</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
