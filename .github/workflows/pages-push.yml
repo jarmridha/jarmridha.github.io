@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: jarmridha/rakib-prime-folio
+          repository: jarmridha/rakib-prime-folio-fac53b50
           ref: main
           path: source-site
       - uses: actions/setup-node@v4
