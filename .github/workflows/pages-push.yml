@@ -28,9 +28,11 @@ jobs:
           cache: npm
           cache-dependency-path: source-site/package-lock.json
       - uses: actions/configure-pages@v5
-      - working-directory: source-site
-        run: npm ci
-      - working-directory: source-site
+      - name: Install
+        working-directory: source-site
+        run: npm install
+      - name: Build
+        working-directory: source-site
         env:
           VITE_BASE: /
         run: npm run build
