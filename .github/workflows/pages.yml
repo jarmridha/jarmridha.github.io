@@ -1,41 +1,12 @@
-name: Build and deploy portfolio
+name: Legacy portfolio deploy (manual only)
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  info:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Import verified portfolio source
-        run: python .github/import-portfolio.py
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
-      - name: Validate output
-        run: test -s dist/index.html && test -d dist/assets && test -s "dist/J. A. Rakib Mridha_Cv.pdf"
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - run: echo "Legacy workflow disabled for automatic pushes."
