@@ -1,18 +1,19 @@
-name: Import and deploy portfolio
+name: Build and deploy portfolio
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Import verified portfolio source
@@ -25,16 +26,10 @@ jobs:
       - run: npm run build
       - name: Validate output
         run: test -s dist/index.html && test -d dist/assets && test -s "dist/J. A. Rakib Mridha_Cv.pdf"
-      - name: Save migrated source after successful build
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add --pathspec-from-file=/tmp/portfolio-paths --pathspec-file-nul
-          git diff --cached --quiet || git commit -m "Import portfolio source and link current CV"
-          git push origin HEAD:main
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -45,5 +40,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
