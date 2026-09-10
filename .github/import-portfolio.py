@@ -21,6 +21,15 @@ with zipfile.ZipFile(archive) as z:
         dest.write_bytes(z.read(entry))
         paths.append(entry.filename)
 
+# Remove the duplicate certificate copy. The stored file named
+# "Health & Safety Induction Certificate.pdf" is byte-for-byte identical
+# to hse-engineering.pdf and must not be published as a separate credential.
+duplicate_certificate = Path("public/certificates/Health & Safety Induction Certificate.pdf")
+if duplicate_certificate.exists():
+    duplicate_certificate.unlink()
+    duplicate_path = str(duplicate_certificate)
+    paths = [p for p in paths if p != duplicate_path]
+
 # Apply verified corrections maintained outside the archived source.
 overrides = Path(".github/portfolio-overrides")
 for source in overrides.glob("*.tsx"):
