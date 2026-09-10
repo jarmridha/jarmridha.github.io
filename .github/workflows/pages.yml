@@ -1,51 +1,46 @@
-name: Deploy Pages
-
+name: Import and deploy portfolio
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
-  schedule:
-    - cron: '17,47 * * * *'
-
+    branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          repository: jarmridha/rakib-prime-folio-fac53b50
-          ref: main
-          path: source-site
+      - name: Import verified portfolio source
+        run: python .github/import-portfolio.py
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-          cache-dependency-path: source-site/package-lock.json
-      - uses: actions/configure-pages@v5
-      - name: Install
-        working-directory: source-site
-        run: npm install
-      - name: Build
-        working-directory: source-site
-        env:
-          VITE_BASE: /
-        run: npm run build
+      - run: npm install --legacy-peer-deps
+      - run: npm run build
+      - name: Validate output
+        run: test -s dist/index.html && test -d dist/assets && test -s "dist/J. A. Rakib Mridha_Cv.pdf"
+      - name: Save migrated source after successful build
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --pathspec-from-file=/tmp/portfolio-paths --pathspec-file-nul
+          git diff --cached --quiet || git commit -m "Import portfolio source and link current CV"
+          git push origin HEAD:main
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: source-site/dist
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
