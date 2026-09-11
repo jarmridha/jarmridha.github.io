@@ -45,7 +45,6 @@ const ContactSection = () => (
           <div className="glass-card rounded-xl p-5 md:p-6 border border-border/70">
             <p className="text-xs uppercase tracking-[0.18em] text-primary font-body mb-2">Direct Contact</p>
             <h3 className="font-display text-xl font-semibold text-foreground">Choose the fastest way to reach me</h3>
-            <p className="mt-2 text-sm text-muted-foreground font-body leading-relaxed">Email opens your default email app. WhatsApp opens a direct chat with a short pre-filled introduction.</p>
             <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3 mt-5">
               <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Portfolio Inquiry")}`} className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary text-primary-foreground font-body text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary/60 transition"><Mail size={16} /> Email Me</a>
               <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello, I found your engineering portfolio and would like to connect with you.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg glass-card-hover font-body text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/60 transition"><MessageCircle size={16} /> WhatsApp</a>
