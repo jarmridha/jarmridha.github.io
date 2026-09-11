@@ -21,16 +21,14 @@ with zipfile.ZipFile(archive) as z:
         dest.write_bytes(z.read(entry))
         paths.append(entry.filename)
 
-# Remove the duplicate certificate copy. The stored file named
-# "Health & Safety Induction Certificate.pdf" is byte-for-byte identical
-# to hse-engineering.pdf and must not be published as a separate credential.
+# Remove duplicate certificate copy from the deployed artifact.
 duplicate_certificate = Path("public/certificates/Health & Safety Induction Certificate.pdf")
 if duplicate_certificate.exists():
     duplicate_certificate.unlink()
     duplicate_path = str(duplicate_certificate)
     paths = [p for p in paths if p != duplicate_path]
 
-# Apply verified corrections maintained outside the archived source.
+# Apply verified component corrections maintained outside the archived source.
 overrides = Path(".github/portfolio-overrides")
 for source in overrides.glob("*.tsx"):
     destination = Path("src/components") / source.name
@@ -38,7 +36,21 @@ for source in overrides.glob("*.tsx"):
     if str(destination) not in paths:
         paths.append(str(destination))
 
-# Keep the current CV filename/link compatible with the deployed build.
+# Apply professional metadata and self-hosted social preview.
+index_override = overrides / "index.html"
+if index_override.exists():
+    shutil.copy2(index_override, Path("index.html"))
+    if "index.html" not in paths:
+        paths.append("index.html")
+
+og_override = overrides / "og-image.svg"
+if og_override.exists():
+    Path("public").mkdir(exist_ok=True)
+    shutil.copy2(og_override, Path("public/og-image.svg"))
+    if "public/og-image.svg" not in paths:
+        paths.append("public/og-image.svg")
+
+# Keep current CV filename/link compatible with the deployed build.
 hero = Path("src/components/HeroSection.tsx")
 text = hero.read_text()
 text = text.replace("/Jahangir%20Alam_Cv.pdf", "/J.%20A.%20Rakib%20Mridha_Cv.pdf").replace('download="Jahangir Alam_Cv.pdf"', 'download="J. A. Rakib Mridha_Cv.pdf"')
