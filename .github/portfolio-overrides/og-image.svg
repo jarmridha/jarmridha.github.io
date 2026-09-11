@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">J. A. Rakib Mridha Portfolio</title>
+  <desc id="desc">Civil Engineer and QA/QC Professional portfolio social preview.</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <circle cx="1030" cy="120" r="220" fill="#d4af37" opacity="0.08"/>
+  <circle cx="1080" cy="520" r="260" fill="#d4af37" opacity="0.05"/>
+  <rect x="72" y="78" width="8" height="474" rx="4" fill="#d4af37"/>
+  <text x="120" y="185" fill="#d4af37" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="3">CIVIL ENGINEERING · QA/QC · PROJECT EXECUTION</text>
+  <text x="120" y="305" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="700">J. A. Rakib Mridha</text>
+  <text x="120" y="380" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="34">Civil Engineer &amp; QA/QC Professional</text>
+  <text x="120" y="462" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="24">5+ Years Experience · 700+ Inspections · 1,100+ QA/QC Documents</text>
+  <text x="120" y="522" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="22">Dhaka, Bangladesh · jarmridha.github.io</text>
+</svg>
