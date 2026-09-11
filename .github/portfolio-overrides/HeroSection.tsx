@@ -5,12 +5,36 @@ import profileImg from "@/assets/profile-placeholder.jpg";
 
 const roles = ["Civil Engineer", "Quality Control Engineer", "Project Engineer"];
 
+const jobPeriods = [
+  { start: new Date(2019, 10, 1), end: new Date(2021, 9, 1) },
+  { start: new Date(2021, 9, 1), end: new Date(2023, 6, 1) },
+  { start: new Date(2023, 6, 1), end: new Date(2025, 6, 1) },
+  { start: new Date(2025, 10, 1), end: null },
+];
+
+const calculateExperienceYears = () => {
+  const now = new Date();
+  const totalMs = jobPeriods.reduce((sum, period) => {
+    const end = period.end ?? now;
+    return sum + Math.max(0, end.getTime() - period.start.getTime());
+  }, 0);
+  const years = Math.floor(totalMs / (365.2425 * 24 * 60 * 60 * 1000));
+  return `${years}+`;
+};
+
 const HeroSection = () => {
   const [roleIdx, setRoleIdx] = useState(0);
+  const [experienceYears, setExperienceYears] = useState(calculateExperienceYears());
+
   useEffect(() => {
     const interval = setInterval(() => setRoleIdx((i) => (i + 1) % roles.length), 2800);
-    return () => clearInterval(interval);
+    const refreshExperience = setInterval(() => setExperienceYears(calculateExperienceYears()), 24 * 60 * 60 * 1000);
+    return () => {
+      clearInterval(interval);
+      clearInterval(refreshExperience);
+    };
   }, []);
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center section-padding pt-28">
       <div className="absolute inset-0 pointer-events-none overflow-hidden"><div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" /></div>
@@ -26,7 +50,7 @@ const HeroSection = () => {
             <a href="#contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg glass-card-hover font-body text-sm font-medium text-foreground"><Mail size={16} /> Contact Me</a>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
-            {[["5+", "Years Experience"], ["700+", "QA/QC Inspections"], ["1,100+", "QA/QC Documents"], ["98%", "Consultant Approval"]].map(([val, lbl]) => <div key={lbl} className="glass-card rounded-lg p-3 text-center"><p className="text-xl font-display font-bold gold-gradient-text">{val}</p><p className="text-xs text-muted-foreground font-body mt-1">{lbl}</p></div>)}
+            {[[experienceYears, "Years Experience"], ["700+", "QA/QC Inspections"], ["1,100+", "QA/QC Documents"], ["98%", "Consultant Approval"]].map(([val, lbl]) => <div key={lbl} className="glass-card rounded-lg p-3 text-center"><p className="text-xl font-display font-bold gold-gradient-text">{val}</p><p className="text-xs text-muted-foreground font-body mt-1">{lbl}</p></div>)}
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.2 }} className="flex justify-center lg:justify-end">
