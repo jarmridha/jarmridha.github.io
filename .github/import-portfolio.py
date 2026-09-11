@@ -1,6 +1,7 @@
 from pathlib import Path
 import hashlib
 import shutil
+import subprocess
 import zipfile
 
 archive = Path("portfolio-source.zip")
@@ -36,19 +37,35 @@ for source in overrides.glob("*.tsx"):
     if str(destination) not in paths:
         paths.append(str(destination))
 
-# Apply professional metadata and self-hosted social preview.
+# Apply professional metadata.
 index_override = overrides / "index.html"
 if index_override.exists():
     shutil.copy2(index_override, Path("index.html"))
     if "index.html" not in paths:
         paths.append("index.html")
 
+# Build a 1200x630 JPG social preview from the verified SVG artwork.
 og_override = overrides / "og-image.svg"
 if og_override.exists():
-    Path("public").mkdir(exist_ok=True)
-    shutil.copy2(og_override, Path("public/og-image.svg"))
-    if "public/og-image.svg" not in paths:
-        paths.append("public/og-image.svg")
+    public_dir = Path("public")
+    public_dir.mkdir(exist_ok=True)
+    svg_output = public_dir / "og-image.svg"
+    jpg_output = public_dir / "og-image.jpg"
+    shutil.copy2(og_override, svg_output)
+
+    converter = shutil.which("magick") or shutil.which("convert")
+    if converter:
+        subprocess.run(
+            [converter, str(svg_output), "-background", "#0f172a", "-alpha", "remove", "-alpha", "off", "-resize", "1200x630!", "-quality", "92", str(jpg_output)],
+            check=True,
+        )
+    else:
+        # Conservative fallback keeps a valid JPG social image available.
+        shutil.copy2(Path("src/assets/profile-placeholder.jpg"), jpg_output)
+
+    for output in (svg_output, jpg_output):
+        if str(output) not in paths:
+            paths.append(str(output))
 
 # Keep current CV filename/link compatible with the deployed build.
 hero = Path("src/components/HeroSection.tsx")
