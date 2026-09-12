@@ -53,10 +53,10 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center section-padding pt-28">
       <div className="absolute inset-0 pointer-events-none overflow-hidden"><div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" /></div>
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-12 items-center relative z-10">
         <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
           <p className="text-primary font-body text-sm tracking-widest uppercase mb-3">Civil Engineering · QA/QC · Project Execution</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-tight">Jahangir Alam <span className="gold-gradient-text">( Rakib)</span></h1>
+          <h1 className="text-[clamp(1.25rem,5.3vw,3rem)] lg:text-[clamp(2rem,3.5vw,3.75rem)] whitespace-nowrap tracking-tight font-display font-bold leading-tight">Jahangir Alam <span className="gold-gradient-text">(Rakib)</span></h1>
           <div className="h-8 mt-3 overflow-hidden"><motion.p key={roleIdx} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="text-primary font-body text-lg font-medium">{roles[roleIdx]}</motion.p></div>
           <p className="mt-5 text-muted-foreground font-body text-sm leading-relaxed max-w-lg">Results-driven civil engineering professional with 6+ years of hands-on experience in QA/QC, site inspection, technical documentation, project coordination, and execution across major infrastructure projects in Bangladesh.</p>
           <div className="flex flex-wrap gap-3 mt-8">
