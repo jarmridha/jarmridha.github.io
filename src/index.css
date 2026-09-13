@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 42 78% 60%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 16% 14%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 14% 16%;
+    --muted-foreground: 215 12% 65%;
+
+    --accent: 42 78% 60%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 14% 18%;
+    --input: 220 14% 18%;
+    --ring: 42 78% 60%;
+
+    --radius: 0.75rem;
+
+    --glass: 220 18% 12%;
+    --glass-border: 220 14% 22%;
+    --gold-glow: 42 78% 60%;
+    --surface: 220 16% 9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: hsl(var(--glass) / 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border) / 0.4);
+  }
+  .glass-card-hover {
+    background: hsl(var(--glass) / 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border) / 0.4);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .glass-card-hover:hover {
+    border-color: hsl(var(--gold-glow) / 0.3);
+    box-shadow: 0 0 30px hsl(var(--gold-glow) / 0.08);
+  }
+  .gold-gradient-text {
+    background: linear-gradient(135deg, hsl(42 78% 60%), hsl(38 90% 72%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-padding {
+    @apply py-20 md:py-28 px-4 md:px-8;
+  }
+  .gold-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--gold-glow)), transparent);
+  }
+}
+
+section[id] { scroll-margin-top: 6rem; }
+:where(a,button,input,textarea,select):focus-visible { outline:2px solid hsl(var(--primary));outline-offset:4px; }
+.portfolio-modal { border:0;padding:1rem;background:transparent;color:inherit;max-width:min(95vw,48rem);width:100%;max-height:90dvh;overflow-y:auto; }
+.portfolio-modal::backdrop { background:rgb(0 0 0 / .8); }
+.portfolio-modal > * { background:hsl(var(--background)); }
+.skip-link {position:fixed;top:1rem;left:1rem;z-index:200;transform:translateY(-200%);padding:.75rem 1rem;background:hsl(var(--primary));color:hsl(var(--background));}
+.skip-link:focus {transform:translateY(0);}
+@supports not (backdrop-filter:blur(20px)) {.glass-card,.glass-card-hover {background:hsl(var(--card));}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
