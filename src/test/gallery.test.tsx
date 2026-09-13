@@ -1,10 +1,10 @@
 import { afterEach, beforeAll, afterAll, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import ProjectsSectionLite from "../components/ProjectsSectionLite";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.useRealTimers(); });
 beforeAll(() => vi.stubGlobal("IntersectionObserver", class {
   observe() {}
   unobserve() {}
@@ -12,6 +12,18 @@ beforeAll(() => vi.stubGlobal("IntersectionObserver", class {
 }));
 afterAll(() => vi.unstubAllGlobals());
 describe("project gallery", () => {
+  it("advances automatically, pauses, and resumes", () => {
+    vi.useFakeTimers();
+    render(<ProjectsSectionLite />);
+    act(() => vi.advanceTimersByTime(3000));
+    expect(screen.getByAltText("HSIA Terminal 03 — project photograph 2 of 9")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", {name: "Pause HSIA Terminal 03 slideshow"}));
+    act(() => vi.advanceTimersByTime(6000));
+    expect(screen.getByAltText("HSIA Terminal 03 — project photograph 2 of 9")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", {name: "Play HSIA Terminal 03 slideshow"}));
+    act(() => vi.advanceTimersByTime(3000));
+    expect(screen.getByAltText("HSIA Terminal 03 — project photograph 3 of 9")).toBeTruthy();
+  });
   it("has a real local image for every selectable photo", () => {
     render(<ProjectsSectionLite />);
     for (const button of screen.getAllByRole("button")) {
